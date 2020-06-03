@@ -126,4 +126,20 @@ public class CalendarServiceJavaTimeTest {
         assertEquals(firstDay, result[0].getDate());
         assertEquals(lastDay, result[result.length-1].getDate());
     }
+
+    @Test
+    public void given_week53_and_year_2020_getWeekWIthFillers_return_correct_data() {
+        int week53 = 53;
+        int year = 2020;
+
+        LocalDate firstDay = LocalDate.parse("2020-12-28");
+        LocalDate lastDay = LocalDate.parse("2021-01-03");
+        int expectedLength = 7;
+
+        CalendarDay[] result = testObject.getWeekWithFillers(week53, year);
+
+        assertEquals(expectedLength, result.length);
+        assertEquals(firstDay, result[0].getDate());
+        assertEquals(lastDay, result[result.length-1].getDate());
+    }
 }

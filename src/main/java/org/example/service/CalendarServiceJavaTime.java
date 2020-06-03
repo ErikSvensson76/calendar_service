@@ -67,6 +67,17 @@ public class CalendarServiceJavaTime implements CalendarService {
 
     @Override
     public CalendarDay[] getWeekWithFillers(int weekNumber, int year) {
-        return new CalendarDay[0];
+        CalendarDay[] weekDays = getWeekInYear(weekNumber, year);
+        if(weekDays.length == 7 || weekDays.length == 0){
+            return weekDays;
+        }
+
+        LocalDate first = weekDays[0].getDate();
+        LocalDate last = weekDays[weekDays.length-1].getDate();
+
+        first = first.getDayOfWeek() == DayOfWeek.MONDAY ? first : getLastMonday(first);
+        last = last.getDayOfWeek() == DayOfWeek.SUNDAY ? last : getNextSunday(last);
+
+        return getDaysBetween(first, last);
     }
 }
